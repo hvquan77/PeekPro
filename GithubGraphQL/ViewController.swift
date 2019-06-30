@@ -11,7 +11,7 @@ class ViewController: UIViewController {
     let gqlQuery = SearchRepositoriesQuery.init(first: 5, query: "graphql", type: SearchType.repository)
 
     //Paginated search Query
-    //let gqlQuery = SearchRepositoriesQuery.init(first: 5, after: "Y3Vyc29yOjQ=", query: "graphql", type: SearchType.repository)
+    //let gqlQuery = SearchRepositoriesQuery.init(first: 5, after: "Y3Vyc29yOjEwMA==", query: "graphql", type: SearchType.repository)
     
     RepositoriesGraphQLClient.searchRepositories(query: gqlQuery) { (result) in
       switch result {

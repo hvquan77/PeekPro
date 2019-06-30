@@ -9,39 +9,81 @@
 import UIKit
 
 class GraphQLTableViewController: UITableViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        self.setupGraphQLQuery()
     }
 
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 1
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: GraphGLSubtitleTableViewCell.name, for: indexPath)
+        
+        if let cell = cell as? GraphGLSubtitleTableViewCell {
+            cell.title.text = "Hang Quan"
+            cell.details.text = "This is the details of my life"
+            
+            return cell
+        }
+        
         return cell
     }
-    */
 
+    // MARK: - setup
+    // TODO: To add this to the data model
+    private func setupGraphQLQuery() {
+        //Initialize query
+        let gqlQuery = SearchRepositoriesQuery.init(first: 5, query: "graphql", type: SearchType.repository)
+        
+        // TODO: Paginated search Query
+        //let gqlQuery = SearchRepositoriesQuery.init(first: 5, after: "Y3Vyc29yOjEwMA==", query: "graphql", type: SearchType.repository)
+        
+        RepositoriesGraphQLClient.searchRepositories(query: gqlQuery) { (result) in
+            switch result {
+            case .success(let data):
+                if let gqlResult = data {
+                    
+                    if let pageInfo = gqlResult.data?.search.pageInfo {
+                        
+                        
+                        print("pageInfo: \n")
+                        print("hasNextPage: \(pageInfo.hasNextPage)")
+                        print("hasPreviousPage: \(pageInfo.hasPreviousPage)")
+                        print("startCursor: \(String(describing: pageInfo.startCursor))")
+                        print("endCursor: \(String(describing: pageInfo.endCursor))")
+                        print("\n")
+                    }
+                    
+                    
+                    gqlResult.data?.search.edges?.forEach { edge in
+                        guard let repository = edge?.node?.asRepository?.fragments.repositoryDetails else { return }
+                        print("Name: \(repository.name)")
+                        print("Path: \(repository.url)")
+                        print("Owner: \(repository.owner.login)")
+                        print("avatar: \(repository.owner.avatarUrl)")
+                        print("Stars: \(repository.stargazers.totalCount)")
+                        print("\n")
+                    }
+                }
+            case .failure(let error):
+                if let error = error {
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    
+    
+    // MARK: TO DELETE
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -78,7 +120,8 @@ class GraphQLTableViewController: UITableViewController {
     */
 
     /*
-    // MARK: - Navigation
+     
+    // Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -86,5 +129,4 @@ class GraphQLTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }
