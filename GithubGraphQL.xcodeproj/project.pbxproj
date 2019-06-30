@@ -11,6 +11,11 @@
 		66447F698A2C863913E91896 /* Pods_GithubGraphQL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABCE96A0819665B92683A16A /* Pods_GithubGraphQL.framework */; };
 		7130924722C8536100AC373A /* GraphQLTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130924622C8536100AC373A /* GraphQLTableViewController.swift */; };
 		7130924922C8573F00AC373A /* GraphGLSubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130924822C8573F00AC373A /* GraphGLSubtitleTableViewCell.swift */; };
+		7130925822C8819F00AC373A /* GraphQLModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7130925622C8819F00AC373A /* GraphQLModel.xcdatamodeld */; };
+		7130925F22C8857C00AC373A /* PageInfo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130925D22C8857C00AC373A /* PageInfo+CoreDataClass.swift */; };
+		71BF21F122C8874A0031F822 /* Edge+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF21EF22C8874A0031F822 /* Edge+CoreDataClass.swift */; };
+		71BF21F922C8883E0031F822 /* Edge+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF21F722C8883E0031F822 /* Edge+CoreDataProperties.swift */; };
+		71BF21FA22C8883E0031F822 /* PageInfo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF21F822C8883E0031F822 /* PageInfo+CoreDataProperties.swift */; };
 		7346F51CDA36DE5C51486FCC /* Pods_GithubGraphQLUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696FECE5EDEC8B0066CC5A95 /* Pods_GithubGraphQLUITests.framework */; };
 		D9A10FA0216C4AFD007998EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A10F9F216C4AFD007998EC /* AppDelegate.swift */; };
 		D9A10FA2216C4AFD007998EC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A10FA1216C4AFD007998EC /* ViewController.swift */; };
@@ -56,6 +61,11 @@
 		696FECE5EDEC8B0066CC5A95 /* Pods_GithubGraphQLUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GithubGraphQLUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7130924622C8536100AC373A /* GraphQLTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLTableViewController.swift; sourceTree = "<group>"; };
 		7130924822C8573F00AC373A /* GraphGLSubtitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphGLSubtitleTableViewCell.swift; sourceTree = "<group>"; };
+		7130925722C8819F00AC373A /* GraphQLModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GraphQLModel.xcdatamodel; sourceTree = "<group>"; };
+		7130925D22C8857C00AC373A /* PageInfo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PageInfo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		71BF21EF22C8874A0031F822 /* Edge+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Edge+CoreDataClass.swift"; sourceTree = "<group>"; };
+		71BF21F722C8883E0031F822 /* Edge+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Edge+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		71BF21F822C8883E0031F822 /* PageInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PageInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AB1DCA7D862BEB7D144E7E13 /* Pods-GithubGraphQLTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GithubGraphQLTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GithubGraphQLTests/Pods-GithubGraphQLTests.release.xcconfig"; sourceTree = "<group>"; };
 		ABCE96A0819665B92683A16A /* Pods_GithubGraphQL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GithubGraphQL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C46721E35993F32712F0753A /* Pods_GithubGraphQLTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GithubGraphQLTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -181,6 +191,11 @@
 		7130925522C8810F00AC373A /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				71BF21EF22C8874A0031F822 /* Edge+CoreDataClass.swift */,
+				71BF21F722C8883E0031F822 /* Edge+CoreDataProperties.swift */,
+				7130925D22C8857C00AC373A /* PageInfo+CoreDataClass.swift */,
+				71BF21F822C8883E0031F822 /* PageInfo+CoreDataProperties.swift */,
+				7130925622C8819F00AC373A /* GraphQLModel.xcdatamodeld */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -512,14 +527,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71BF21FA22C8883E0031F822 /* PageInfo+CoreDataProperties.swift in Sources */,
 				7130924922C8573F00AC373A /* GraphGLSubtitleTableViewCell.swift in Sources */,
+				7130925822C8819F00AC373A /* GraphQLModel.xcdatamodeld in Sources */,
 				D9A10FA2216C4AFD007998EC /* ViewController.swift in Sources */,
 				D9A10FE8216C77CD007998EC /* GraphQLManager.swift in Sources */,
 				D9A10FF4216D93B8007998EC /* RepositoriesGraphQLRequest.swift in Sources */,
 				D9A10FEA216C77CD007998EC /* GraphQLAuthHTTPNetworkTransport.swift in Sources */,
+				71BF21F922C8883E0031F822 /* Edge+CoreDataProperties.swift in Sources */,
+				71BF21F122C8874A0031F822 /* Edge+CoreDataClass.swift in Sources */,
 				D9C8E128216DBA11002A64FC /* API.swift in Sources */,
 				D9A10FF2216D7501007998EC /* GraphQLResult.swift in Sources */,
 				D9A10FF0216C7805007998EC /* RepositoriesGraphQLClient.swift in Sources */,
+				7130925F22C8857C00AC373A /* PageInfo+CoreDataClass.swift in Sources */,
 				D9A10FE9216C77CD007998EC /* GraphQLClientProtocol.swift in Sources */,
 				7130924722C8536100AC373A /* GraphQLTableViewController.swift in Sources */,
 				D9A10FA0216C4AFD007998EC /* AppDelegate.swift in Sources */,
@@ -855,6 +875,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7130925622C8819F00AC373A /* GraphQLModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7130925722C8819F00AC373A /* GraphQLModel.xcdatamodel */,
+			);
+			currentVersion = 7130925722C8819F00AC373A /* GraphQLModel.xcdatamodel */;
+			path = GraphQLModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D9A10F94216C4AFD007998EC /* Project object */;
 }

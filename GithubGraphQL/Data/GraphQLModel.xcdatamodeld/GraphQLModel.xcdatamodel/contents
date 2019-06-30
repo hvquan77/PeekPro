@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="17G3025" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Edge" representedClassName=".Edge" syncable="YES">
+        <attribute name="avatarUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="login" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="ownerType" attributeType="String" syncable="YES"/>
+        <attribute name="stargazersTotalCount" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="typeName" attributeType="String" syncable="YES"/>
+        <attribute name="url" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="PageInfo" representedClassName=".PageInfo" syncable="YES">
+        <attribute name="endCursor" attributeType="String" syncable="YES"/>
+        <attribute name="hasNextPage" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="hasPreviousPage" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="queryString" attributeType="String" syncable="YES"/>
+        <attribute name="startCursor" attributeType="String" syncable="YES"/>
+        <attribute name="typeName" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Edge" positionX="0" positionY="90" width="128" height="150"/>
+        <element name="PageInfo" positionX="-36" positionY="9" width="128" height="135"/>
+    </elements>
+</model>
