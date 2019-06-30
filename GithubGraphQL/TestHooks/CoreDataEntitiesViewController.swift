@@ -23,10 +23,14 @@ class CoreDataEntitiesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.populateEntities()
+        //self.populateEntities()
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.populateEntities()
     }
     
     /**
@@ -36,7 +40,7 @@ class CoreDataEntitiesViewController: UIViewController {
         let model = self.managedContext.persistentStoreCoordinator?.managedObjectModel
         model?.entities.forEach({ [weak self] entity in
             
-            if NSEntityDescription.entity(forEntityName: entity.managedObjectClassName, in: self!.managedContext) != nil {
+            if let _ = NSEntityDescription.entity(forEntityName: entity.managedObjectClassName, in: managedContext) {
                 self?.entities.append(entity.managedObjectClassName)
             }
         })

@@ -10,12 +10,19 @@ import UIKit
 import CoreData
 
 class GraphQLTableViewController: UITableViewController {
+    private let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private var gqlQuery: SearchRepositoriesQuery?
     private var edges = [Edge]()
+    private var pages = [PageInfo]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // We want perceived performance.
+        // If the cache is empty, only then will we call a refresh()
+        // NICE-TO-HAVE: Empty state
+        //self.refreshFromCache()
         self.setupGraphQLQuery()
         self.refresh()
     }
@@ -26,7 +33,8 @@ class GraphQLTableViewController: UITableViewController {
 
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return self.edges.count
+        //return self.edges.count
+        return self.pages.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -37,8 +45,21 @@ class GraphQLTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: GraphGLSubtitleTableViewCell.name, for: indexPath)
         
         if let cell = cell as? GraphGLSubtitleTableViewCell {
-            cell.title.text = "Hang Quan"
-            cell.details.text = "This is the details of my life"
+            cell.title.text = self.pages[indexPath.row].typeName
+            cell.details.text = """
+            pageInfo: \n
+            hasNextPage: \(self.pages[indexPath.row].hasNextPage) \n
+            hasPreviousPage: \(self.pages[indexPath.row].hasPreviousPage)\n
+            startCursor: \(String(describing: self.pages[indexPath.row].startCursor))
+            endCursor: \(String(describing: self.pages[indexPath.row].endCursor))
+            """
+            
+            print("pageInfo: \n")
+            print("hasNextPage: \(pages[0].hasNextPage)")
+            print("hasPreviousPage: \(pages[0].hasPreviousPage)")
+            print("startCursor: \(String(describing: pages[0].startCursor))")
+            print("endCursor: \(String(describing: pages[0].endCursor))")
+            print("\n")
             
             return cell
         }
@@ -50,41 +71,111 @@ class GraphQLTableViewController: UITableViewController {
     // TODO: To add this to the data model
     private func setupGraphQLQuery() {
         //Initialize query
-        let gqlQuery = SearchRepositoriesQuery.init(first: 5, query: "graphql", type: SearchType.repository)
+        self.gqlQuery = SearchRepositoriesQuery.init(first: 100, query: "graphql", type: SearchType.repository)
         
         // TODO: Paginated search Query
         //let gqlQuery = SearchRepositoriesQuery.init(first: 5, after: "Y3Vyc29yOjEwMA==", query: "graphql", type: SearchType.repository)
         
-        RepositoriesGraphQLClient.searchRepositories(query: gqlQuery) { (result) in
-            switch result {
-            case .success(let data):
-                if let gqlResult = data {
-                    
-                    if let pageInfo = gqlResult.data?.search.pageInfo {
+        self.fetchAndSaveGraphQLQuery()
+    }
+    
+    private func fetchAndSaveGraphQLQuery() {
+        if let query = self.gqlQuery {
+            RepositoriesGraphQLClient.searchRepositories(query: query) { (result) in
+                switch result {
+                case .success(let data):
+                    if let gqlResult = data {
+                        if let pageInfoData = gqlResult.data?.search.pageInfo {
+                            do
+                            {
+                                let pageInfos = try self.context.fetch(PageInfo.fetchRequest())
+                                
+                                if let pageInfo = pageInfos.first as? PageInfo {
+                                    print("pageInfo found")
+                                    pageInfo.queryString = "graphql"
+                                    pageInfo.typeName = pageInfoData.__typename
+                                    pageInfo.endCursor = pageInfoData.endCursor
+                                    pageInfo.startCursor = pageInfoData.startCursor
+                                    pageInfo.hasNextPage = pageInfoData.hasNextPage
+                                    pageInfo.hasPreviousPage = pageInfoData.hasPreviousPage
+                                } else {
+                                    print("pageInfo NOT found")
+                                    let pageInfo = PageInfo(entity: PageInfo.entity(), insertInto: self.context)
+                                    pageInfo.queryString = "graphql"
+                                    pageInfo.typeName = pageInfoData.__typename
+                                    pageInfo.endCursor = pageInfoData.endCursor
+                                    pageInfo.startCursor = pageInfoData.startCursor
+                                    pageInfo.hasNextPage = pageInfoData.hasNextPage
+                                    pageInfo.hasPreviousPage = pageInfoData.hasPreviousPage
+                                    self.appDelegate.saveContext()
+                                }
+                                
+                                //                                self.appDelegate.saveContext()
+                                
+                                print("Page Info imported")
+                                print("\n")
+                                //                        print("pageInfo \n")
+                                //                        print("hasNextPage: \(pageInfo.hasNextPage)")
+                                //                        print("hasPreviousPage: \(pageInfo.hasPreviousPage)")
+                                //                        print("startCursor: \(String(describing: pageInfo.startCursor))")
+                                //                        print("endCursor: \(String(describing: pageInfo.endCursor))")
+                                //                        print("\n")
+                            } catch let error as NSError {
+                                print("Unexpected error: \(error)")
+                            }
+                        }
                         
-                        
-                        print("pageInfo: \n")
-                        print("hasNextPage: \(pageInfo.hasNextPage)")
-                        print("hasPreviousPage: \(pageInfo.hasPreviousPage)")
-                        print("startCursor: \(String(describing: pageInfo.startCursor))")
-                        print("endCursor: \(String(describing: pageInfo.endCursor))")
-                        print("\n")
+                        do
+                        {
+                            let edges = try self.context.fetch(Edge.fetchRequest())
+                            gqlResult.data?.search.edges?.forEach { gqlEdge in
+                                guard let repository = gqlEdge?.node?.asRepository?.fragments.repositoryDetails else { return }
+                                
+                                if let edges = edges as? [Edge] {
+                                    if let index = edges.firstIndex(where: { $0.name == repository.name }) {
+                                        print( "Edge \(edges[index]) found" )
+                                        edges[index].name = repository.name
+                                        edges[index].url = repository.url
+                                        edges[index].login = repository.owner.login
+                                        edges[index].avatarUrl = repository.owner.avatarUrl
+                                        edges[index].stargazersTotalCount = Int64(repository.stargazers.totalCount)
+                                        edges[index].ownerType = repository.owner.__typename
+                                        edges[index].typeName = repository.__typename
+                                    } else {
+                                        print( "Edge \(repository.name) NOT found**" )
+                                        let edge = Edge(entity: Edge.entity(), insertInto: self.context)
+                                        edge.name = repository.name
+                                        edge.url = repository.url
+                                        edge.login = repository.owner.login
+                                        edge.avatarUrl = repository.owner.avatarUrl
+                                        edge.stargazersTotalCount = Int64(repository.stargazers.totalCount)
+                                        edge.ownerType = repository.owner.__typename
+                                        edge.typeName = repository.__typename
+                                    }
+                                }
+                                
+                                print("Edge \(repository.name) Info imported")
+                                print("\n")
+                                //                                print("Name: \(repository.name)")
+                                //                                print("Path: \(repository.url)")
+                                //                                print("Owner: \(repository.owner.login)")
+                                //                                print("avatar: \(repository.owner.avatarUrl)")
+                                //                                print("Stars: \(repository.stargazers.totalCount)")
+                                //                                print("\n")
+                            }
+                            self.appDelegate.saveContext()
+                            
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                            }
+                        } catch let error as NSError {
+                            print("Unexpected error: \(error)")
+                        }
                     }
-                    
-                    
-                    gqlResult.data?.search.edges?.forEach { edge in
-                        guard let repository = edge?.node?.asRepository?.fragments.repositoryDetails else { return }
-                        print("Name: \(repository.name)")
-                        print("Path: \(repository.url)")
-                        print("Owner: \(repository.owner.login)")
-                        print("avatar: \(repository.owner.avatarUrl)")
-                        print("Stars: \(repository.stargazers.totalCount)")
-                        print("\n")
+                case .failure(let error):
+                    if let error = error {
+                        print(error)
                     }
-                }
-            case .failure(let error):
-                if let error = error {
-                    print(error)
                 }
             }
         }
@@ -93,6 +184,7 @@ class GraphQLTableViewController: UITableViewController {
     private func refresh() {
         do {
             self.edges = try context.fetch(Edge.fetchRequest())
+            self.pages = try context.fetch(PageInfo.fetchRequest())
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
