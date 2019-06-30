@@ -1,0 +1,17 @@
+query SearchRepositories($first: Int!, $after: String, $last: Int, $before: String, $query: String!, $type: SearchType!) {
+  search(first: $first, after: $after, last: $last, before: $before, query: $query, type: $type) {
+    pageInfo{
+      startCursor,
+      endCursor,
+      hasNextPage,
+      hasPreviousPage
+    }
+    edges {
+      node {
+        ... on Repository {
+            ...RepositoryDetails
+        }
+      }
+    }
+  }
+}
