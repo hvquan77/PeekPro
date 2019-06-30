@@ -13,6 +13,8 @@ class GraphQLTableViewController: UITableViewController {
     private let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     private var gqlQuery: SearchRepositoriesQuery?
+    private let limit = 20
+    //private var hasNextPage = true
     
     //private let refreshControl = UIRefreshControl()
     private var edges = [Edge]()
@@ -26,10 +28,6 @@ class GraphQLTableViewController: UITableViewController {
         // If the cache is empty, only then will we call a fetchAndSave()
         self.setupGraphQLQuery()
         self.addRefreshControl()
-        self.refresh()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
         self.refresh()
     }
 
@@ -71,17 +69,24 @@ class GraphQLTableViewController: UITableViewController {
         
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == self.edges.count - 4 {
+            if self.pages.first?.hasNextPage ?? false {
+                self.gqlQuery = SearchRepositoriesQuery.init(first: 20, after: self.pages.first?.endCursor ?? "", query: "graphql", type: SearchType.repository)
+                self.fetchAndSaveGraphQLQuery()
+            }
+        }
+    }
 
     // MARK: - setup
     // TODO: To add this to the data model
     private func setupGraphQLQuery() {
         //Initialize query
-        self.gqlQuery = SearchRepositoriesQuery.init(first: 100, query: "graphql", type: SearchType.repository)
+        self.gqlQuery = SearchRepositoriesQuery.init(first: 20, query: "graphql", type: SearchType.repository)
         
         // TODO: Paginated search Query
-        //let gqlQuery = SearchRepositoriesQuery.init(first: 5, after: "Y3Vyc29yOjEwMA==", query: "graphql", type: SearchType.repository)
-        
-        self.refresh()
+        //self.gqlQuery = SearchRepositoriesQuery.init(first: 5, after: "Y3Vyc29yOjEwMA==", query: "graphql", type: SearchType.repository)
     }
     
     private func addRefreshControl() {
@@ -137,6 +142,7 @@ class GraphQLTableViewController: UITableViewController {
                                 
                                 print("Page Info imported")
                                 print("\n")
+
                                 //                        print("pageInfo \n")
                                 //                        print("hasNextPage: \(pageInfo.hasNextPage)")
                                 //                        print("hasPreviousPage: \(pageInfo.hasPreviousPage)")
@@ -184,10 +190,11 @@ class GraphQLTableViewController: UITableViewController {
                                 //                                print("Stars: \(repository.stargazers.totalCount)")
                                 //                                print("\n")
                             }
+                            
                             self.appDelegate.saveContext()
                             
                             DispatchQueue.main.async {
-                                self.tableView.reloadData()
+                                self.refresh()
                             }
                         } catch let error as NSError {
                             print("Unexpected error: \(error)")
@@ -215,6 +222,8 @@ class GraphQLTableViewController: UITableViewController {
                 print("Empty state encountered")
                 self.fetchAndSaveGraphQLQuery()
             } else {
+                print("Pages count: \(self.pages.count)")
+                print("Edges count: \(self.edges.count)")
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -228,6 +237,7 @@ class GraphQLTableViewController: UITableViewController {
      Trigger refresh on view model and show refresh animation
      */
     @objc func pullToRefresh() {
+        self.setupGraphQLQuery()
         self.fetchAndSaveGraphQLQuery()
     }
     
