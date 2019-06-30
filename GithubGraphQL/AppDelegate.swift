@@ -10,7 +10,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let container = NSPersistentContainer(name: Constants.dataModelName)
         container.loadPersistentStores(completionHandler: {
             (storeDescription, error) in
-            print(storeDescription)
+            //print(storeDescription)
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }

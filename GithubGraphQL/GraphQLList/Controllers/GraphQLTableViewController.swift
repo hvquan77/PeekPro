@@ -13,17 +13,19 @@ class GraphQLTableViewController: UITableViewController {
     private let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     private var gqlQuery: SearchRepositoriesQuery?
+    
+    //private let refreshControl = UIRefreshControl()
     private var edges = [Edge]()
     private var pages = [PageInfo]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // We want perceived performance.
-        // If the cache is empty, only then will we call a refresh()
-        // NICE-TO-HAVE: Empty state
-        //self.refreshFromCache()
+        // App needs to be fast. So we'll fetch from cache if caches isn't empty.
+        // User can then pull to refresh to get latest data.
+        // If the cache is empty, only then will we call a fetchAndSave()
         self.setupGraphQLQuery()
+        self.addRefreshControl()
         self.refresh()
     }
     
@@ -33,35 +35,38 @@ class GraphQLTableViewController: UITableViewController {
 
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        //return self.edges.count
-        return self.pages.count
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return self.pages.count + self.edges.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GraphGLSubtitleTableViewCell.name, for: indexPath)
         
         if let cell = cell as? GraphGLSubtitleTableViewCell {
-            cell.title.text = self.pages[indexPath.row].typeName
-            cell.details.text = """
-            pageInfo: \n
-            hasNextPage: \(self.pages[indexPath.row].hasNextPage) \n
-            hasPreviousPage: \(self.pages[indexPath.row].hasPreviousPage)\n
-            startCursor: \(String(describing: self.pages[indexPath.row].startCursor))
-            endCursor: \(String(describing: self.pages[indexPath.row].endCursor))
-            """
-            
-            print("pageInfo: \n")
-            print("hasNextPage: \(pages[0].hasNextPage)")
-            print("hasPreviousPage: \(pages[0].hasPreviousPage)")
-            print("startCursor: \(String(describing: pages[0].startCursor))")
-            print("endCursor: \(String(describing: pages[0].endCursor))")
-            print("\n")
+            if indexPath.row == 0 {
+                cell.title.text = self.pages[indexPath.row].typeName
+                cell.details.text = """
+                hasNextPage: \(self.pages[indexPath.row].hasNextPage)
+                hasPreviousPage: \(self.pages[indexPath.row].hasPreviousPage)
+                startCursor: \(self.pages[indexPath.row].startCursor ?? "")
+                endCursor: \(self.pages[indexPath.row].endCursor ?? "")
+                """
+            } else {
+                let newIndexPathRow = indexPath.row - 1
+                cell.title.text = self.edges[newIndexPathRow].name ?? ""
+                cell.details.text = """
+                Path: \(self.edges[newIndexPathRow].url ?? "")
+                Owner: \(self.edges[newIndexPathRow].login ?? "")
+                Avatar: \(self.edges[newIndexPathRow].avatarUrl ?? "")
+                Stars: \(self.edges[newIndexPathRow].stargazersTotalCount)
+                """
+            }
             
             return cell
+            
         }
         
         return cell
@@ -76,7 +81,25 @@ class GraphQLTableViewController: UITableViewController {
         // TODO: Paginated search Query
         //let gqlQuery = SearchRepositoriesQuery.init(first: 5, after: "Y3Vyc29yOjEwMA==", query: "graphql", type: SearchType.repository)
         
-        self.fetchAndSaveGraphQLQuery()
+        self.refresh()
+    }
+    
+    private func addRefreshControl() {
+        if self.refreshControl == nil {
+            self.refreshControl = UIRefreshControl()
+        }
+        
+        if let refreshControl = self.refreshControl {
+            let attributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+            refreshControl.addTarget(self,
+                                     action: #selector(type(of: self).pullToRefresh),
+                                     for: UIControl.Event.valueChanged)
+            
+            //refreshControl.attributedTitle = NSAttributedString(string: "Fetching GraphQL data...")
+            refreshControl.attributedTitle = NSAttributedString(string: "Fetching GraphQL data...", attributes: attributes)
+            refreshControl.tintColor = UIColor.white
+            self.tableView.addSubview(refreshControl)
+        }
     }
     
     private func fetchAndSaveGraphQLQuery() {
@@ -133,7 +156,7 @@ class GraphQLTableViewController: UITableViewController {
                                 
                                 if let edges = edges as? [Edge] {
                                     if let index = edges.firstIndex(where: { $0.name == repository.name }) {
-                                        print( "Edge \(edges[index]) found" )
+                                        print( "Edge \(edges[index].name ?? "") found" )
                                         edges[index].name = repository.name
                                         edges[index].url = repository.url
                                         edges[index].login = repository.owner.login
@@ -151,11 +174,9 @@ class GraphQLTableViewController: UITableViewController {
                                         edge.stargazersTotalCount = Int64(repository.stargazers.totalCount)
                                         edge.ownerType = repository.owner.__typename
                                         edge.typeName = repository.__typename
+                                        print("Edge \(repository.name) Info imported")
                                     }
                                 }
-                                
-                                print("Edge \(repository.name) Info imported")
-                                print("\n")
                                 //                                print("Name: \(repository.name)")
                                 //                                print("Path: \(repository.url)")
                                 //                                print("Owner: \(repository.owner.login)")
@@ -177,6 +198,10 @@ class GraphQLTableViewController: UITableViewController {
                         print(error)
                     }
                 }
+                
+                DispatchQueue.main.async {
+                    self.refreshControl?.endRefreshing()
+                }
             }
         }
     }
@@ -185,9 +210,25 @@ class GraphQLTableViewController: UITableViewController {
         do {
             self.edges = try context.fetch(Edge.fetchRequest())
             self.pages = try context.fetch(PageInfo.fetchRequest())
+            
+            if self.edges.count == 0 {
+                print("Empty state encountered")
+                self.fetchAndSaveGraphQLQuery()
+            } else {
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
+    }
+    
+    /**
+     Trigger refresh on view model and show refresh animation
+     */
+    @objc func pullToRefresh() {
+        self.fetchAndSaveGraphQLQuery()
     }
     
     
