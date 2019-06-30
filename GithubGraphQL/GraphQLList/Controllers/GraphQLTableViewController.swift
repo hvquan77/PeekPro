@@ -7,17 +7,26 @@
 //
 
 import UIKit
+import CoreData
 
 class GraphQLTableViewController: UITableViewController {
+    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private var edges = [Edge]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setupGraphQLQuery()
+        self.refresh()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.refresh()
     }
 
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return self.edges.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -81,6 +90,13 @@ class GraphQLTableViewController: UITableViewController {
         }
     }
     
+    private func refresh() {
+        do {
+            self.edges = try context.fetch(Edge.fetchRequest())
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
     
     
     // MARK: TO DELETE

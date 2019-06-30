@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+struct Constants {
+    static let dataModelName = "GraphQLModel"
+}

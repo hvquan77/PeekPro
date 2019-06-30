@@ -16,6 +16,10 @@
 		71BF21F122C8874A0031F822 /* Edge+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF21EF22C8874A0031F822 /* Edge+CoreDataClass.swift */; };
 		71BF21F922C8883E0031F822 /* Edge+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF21F722C8883E0031F822 /* Edge+CoreDataProperties.swift */; };
 		71BF21FA22C8883E0031F822 /* PageInfo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF21F822C8883E0031F822 /* PageInfo+CoreDataProperties.swift */; };
+		71BF21FD22C88AD40031F822 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF21FC22C88AD40031F822 /* Constants.swift */; };
+		71BF220122C88FE10031F822 /* CoreDataEntitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF21FF22C88FE10031F822 /* CoreDataEntitiesViewController.swift */; };
+		71BF220222C88FE10031F822 /* CoreDataEntityItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF220022C88FE10031F822 /* CoreDataEntityItemViewController.swift */; };
+		71BF220422C8922C0031F822 /* CoreDataEntityItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF220322C8922C0031F822 /* CoreDataEntityItemTableViewCell.swift */; };
 		7346F51CDA36DE5C51486FCC /* Pods_GithubGraphQLUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696FECE5EDEC8B0066CC5A95 /* Pods_GithubGraphQLUITests.framework */; };
 		D9A10FA0216C4AFD007998EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A10F9F216C4AFD007998EC /* AppDelegate.swift */; };
 		D9A10FA2216C4AFD007998EC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A10FA1216C4AFD007998EC /* ViewController.swift */; };
@@ -66,6 +70,10 @@
 		71BF21EF22C8874A0031F822 /* Edge+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Edge+CoreDataClass.swift"; sourceTree = "<group>"; };
 		71BF21F722C8883E0031F822 /* Edge+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Edge+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		71BF21F822C8883E0031F822 /* PageInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PageInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		71BF21FC22C88AD40031F822 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		71BF21FF22C88FE10031F822 /* CoreDataEntitiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataEntitiesViewController.swift; sourceTree = "<group>"; };
+		71BF220022C88FE10031F822 /* CoreDataEntityItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataEntityItemViewController.swift; sourceTree = "<group>"; };
+		71BF220322C8922C0031F822 /* CoreDataEntityItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataEntityItemTableViewCell.swift; sourceTree = "<group>"; };
 		AB1DCA7D862BEB7D144E7E13 /* Pods-GithubGraphQLTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GithubGraphQLTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GithubGraphQLTests/Pods-GithubGraphQLTests.release.xcconfig"; sourceTree = "<group>"; };
 		ABCE96A0819665B92683A16A /* Pods_GithubGraphQL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GithubGraphQL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C46721E35993F32712F0753A /* Pods_GithubGraphQLTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GithubGraphQLTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -146,14 +154,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		7130924222C8530600AC373A /* GithubGraphQLTable */ = {
+		7130924222C8530600AC373A /* GraphQLList */ = {
 			isa = PBXGroup;
 			children = (
 				7130924522C8533D00AC373A /* ViewModel */,
 				7130924422C8533800AC373A /* View */,
 				7130924322C8531C00AC373A /* Controllers */,
 			);
-			path = GithubGraphQLTable;
+			path = GraphQLList;
 			sourceTree = "<group>";
 		};
 		7130924322C8531C00AC373A /* Controllers */ = {
@@ -200,6 +208,24 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
+		71BF21FB22C88A670031F822 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				71BF21FC22C88AD40031F822 /* Constants.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		71BF21FE22C88F390031F822 /* TestHooks */ = {
+			isa = PBXGroup;
+			children = (
+				71BF220322C8922C0031F822 /* CoreDataEntityItemTableViewCell.swift */,
+				71BF21FF22C88FE10031F822 /* CoreDataEntitiesViewController.swift */,
+				71BF220022C88FE10031F822 /* CoreDataEntityItemViewController.swift */,
+			);
+			path = TestHooks;
+			sourceTree = "<group>";
+		};
 		D9A10F93216C4AFD007998EC = {
 			isa = PBXGroup;
 			children = (
@@ -226,9 +252,11 @@
 			isa = PBXGroup;
 			children = (
 				7130925522C8810F00AC373A /* Data */,
-				7130924222C8530600AC373A /* GithubGraphQLTable */,
+				7130924222C8530600AC373A /* GraphQLList */,
 				D9A10FCD216C4E71007998EC /* Managers */,
+				71BF21FB22C88A670031F822 /* Shared */,
 				7130924D22C879FD00AC373A /* Supporting Files */,
+				71BF21FE22C88F390031F822 /* TestHooks */,
 				D9A10F9F216C4AFD007998EC /* AppDelegate.swift */,
 				D9A10FA8216C4AFD007998EC /* LaunchScreen.storyboard */,
 				D9A10FA3216C4AFD007998EC /* Main.storyboard */,
@@ -528,6 +556,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				71BF21FA22C8883E0031F822 /* PageInfo+CoreDataProperties.swift in Sources */,
+				71BF21FD22C88AD40031F822 /* Constants.swift in Sources */,
 				7130924922C8573F00AC373A /* GraphGLSubtitleTableViewCell.swift in Sources */,
 				7130925822C8819F00AC373A /* GraphQLModel.xcdatamodeld in Sources */,
 				D9A10FA2216C4AFD007998EC /* ViewController.swift in Sources */,
@@ -536,8 +565,11 @@
 				D9A10FEA216C77CD007998EC /* GraphQLAuthHTTPNetworkTransport.swift in Sources */,
 				71BF21F922C8883E0031F822 /* Edge+CoreDataProperties.swift in Sources */,
 				71BF21F122C8874A0031F822 /* Edge+CoreDataClass.swift in Sources */,
+				71BF220422C8922C0031F822 /* CoreDataEntityItemTableViewCell.swift in Sources */,
 				D9C8E128216DBA11002A64FC /* API.swift in Sources */,
+				71BF220222C88FE10031F822 /* CoreDataEntityItemViewController.swift in Sources */,
 				D9A10FF2216D7501007998EC /* GraphQLResult.swift in Sources */,
+				71BF220122C88FE10031F822 /* CoreDataEntitiesViewController.swift in Sources */,
 				D9A10FF0216C7805007998EC /* RepositoriesGraphQLClient.swift in Sources */,
 				7130925F22C8857C00AC373A /* PageInfo+CoreDataClass.swift in Sources */,
 				D9A10FE9216C77CD007998EC /* GraphQLClientProtocol.swift in Sources */,
