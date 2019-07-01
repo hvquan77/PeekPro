@@ -7,17 +7,20 @@
 //
 
 import UIKit
-import CoreData
 
 class GraphQLTableViewController : UIViewController {
-    private var viewModel: RepositoryViewModel? = nil
+    private var viewModel: RepositoryViewModelBase? = nil
+    private let lookAheadIndex = 5  // number of indeces to look ahead for Pagenation
     
     @IBOutlet weak var tableView: UITableView!
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.setupViewModel()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.setupViewModel()
         self.refresh()
     }
 
@@ -26,8 +29,8 @@ class GraphQLTableViewController : UIViewController {
         self.viewModel = ViewModelFactory().createGraphQLViewModel()
     }
     
-    private func fetchAndSaveGraphQLQuery(after: String? = nil) {
-        self.viewModel?.fetchAndSave(after: after, success: {
+    private func fetchAndSaveGraphQLQuery(startIndex: Int? = 0, after: String? = nil) {
+        self.viewModel?.fetchAndSave(startIndex: startIndex, after: after, success: {
             DispatchQueue.main.async {
                 self.refresh()
             }}, failure: { (error: Error) in
@@ -35,6 +38,7 @@ class GraphQLTableViewController : UIViewController {
         })
     }
     
+    // MARK: - Private functions
     private func refresh() {
         self.viewModel?.syncFromCache(completion: { return })
         
@@ -49,10 +53,12 @@ class GraphQLTableViewController : UIViewController {
             }
         }
     }
+    
+    // TODO: refreshControl would be nice to have. Will require a cleanup function.
 }
 
+// MARK: - UITableViewDelegate
 extension GraphQLTableViewController : UITableViewDelegate {
-    // MARK: - Table view data source
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -62,14 +68,15 @@ extension GraphQLTableViewController : UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let edges = self.viewModel?.edges, indexPath.row == edges.count - 4 {
+        if let edges = self.viewModel?.edges, indexPath.row == edges.count - self.lookAheadIndex {
             if let first = self.viewModel?.pageInfos.first, first.hasNextPage {
-                self.fetchAndSaveGraphQLQuery(after: first.endCursor ?? "")
+                self.fetchAndSaveGraphQLQuery(startIndex: edges.count, after: first.endCursor ?? "")
             }
         }
     }
 }
 
+// MARK: - UITableViewDataSource
 extension GraphQLTableViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GraphGLSubtitleTableViewCell.name, for: indexPath)
@@ -85,9 +92,7 @@ extension GraphQLTableViewController : UITableViewDataSource {
                 
                 cell.setupCell(title: edges[indexPath.row].name ?? "", details: details)
             }
-            
             return cell
-            
         }
         
         return cell

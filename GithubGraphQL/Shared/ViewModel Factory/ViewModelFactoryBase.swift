@@ -9,5 +9,6 @@
 import Foundation
 
 protocol ViewModelFactoryBase {
-    func createGraphQLViewModel() -> RepositoryViewModel?
+    func createGraphQLViewModel() -> RepositoryViewModelBase?
+    func createGraphQLViewModel(limit: Int, queryString: String) -> RepositoryViewModelBase?
 }

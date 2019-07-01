@@ -9,7 +9,11 @@
 import Foundation
 
 class ViewModelFactory : ViewModelFactoryBase {
-    func createGraphQLViewModel() -> RepositoryViewModel? {
+    func createGraphQLViewModel() -> RepositoryViewModelBase? {
         return GraphQLViewModel()
+    }
+    
+    func createGraphQLViewModel(limit: Int, queryString: String) -> RepositoryViewModelBase? {
+        return GraphQLViewModel(limit: limit, queryString: queryString)
     }
 }
