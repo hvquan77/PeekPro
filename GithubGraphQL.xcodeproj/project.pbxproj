@@ -20,6 +20,15 @@
 		71BF220122C88FE10031F822 /* CoreDataEntitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF21FF22C88FE10031F822 /* CoreDataEntitiesViewController.swift */; };
 		71BF220222C88FE10031F822 /* CoreDataEntityItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF220022C88FE10031F822 /* CoreDataEntityItemViewController.swift */; };
 		71BF220422C8922C0031F822 /* CoreDataEntityItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF220322C8922C0031F822 /* CoreDataEntityItemTableViewCell.swift */; };
+		71BF221022C988720031F822 /* APIFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF220F22C988720031F822 /* APIFactory.swift */; };
+		71BF221222C988820031F822 /* APIFactoryBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF221122C988820031F822 /* APIFactoryBase.swift */; };
+		71BF221422C988930031F822 /* ApolloDataModelClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF221322C988930031F822 /* ApolloDataModelClient.swift */; };
+		71BF221622C989290031F822 /* RepositoryClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF221522C989290031F822 /* RepositoryClient.swift */; };
+		71BF221822C989610031F822 /* SearchGraphQLClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF221722C989610031F822 /* SearchGraphQLClient.swift */; };
+		71BF221A22C98A7E0031F822 /* GraphQLViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF221922C98A7E0031F822 /* GraphQLViewModel.swift */; };
+		71BF221E22C98ADA0031F822 /* ViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF221D22C98ADA0031F822 /* ViewModelFactory.swift */; };
+		71BF222022C98B100031F822 /* ViewModelFactoryBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF221F22C98B100031F822 /* ViewModelFactoryBase.swift */; };
+		71BF222222C98B740031F822 /* RepositoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF222122C98B740031F822 /* RepositoryViewModel.swift */; };
 		7346F51CDA36DE5C51486FCC /* Pods_GithubGraphQLUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 696FECE5EDEC8B0066CC5A95 /* Pods_GithubGraphQLUITests.framework */; };
 		D9A10FA0216C4AFD007998EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A10F9F216C4AFD007998EC /* AppDelegate.swift */; };
 		D9A10FA2216C4AFD007998EC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A10FA1216C4AFD007998EC /* ViewController.swift */; };
@@ -74,6 +83,15 @@
 		71BF21FF22C88FE10031F822 /* CoreDataEntitiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataEntitiesViewController.swift; sourceTree = "<group>"; };
 		71BF220022C88FE10031F822 /* CoreDataEntityItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataEntityItemViewController.swift; sourceTree = "<group>"; };
 		71BF220322C8922C0031F822 /* CoreDataEntityItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataEntityItemTableViewCell.swift; sourceTree = "<group>"; };
+		71BF220F22C988720031F822 /* APIFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIFactory.swift; sourceTree = "<group>"; };
+		71BF221122C988820031F822 /* APIFactoryBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIFactoryBase.swift; sourceTree = "<group>"; };
+		71BF221322C988930031F822 /* ApolloDataModelClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloDataModelClient.swift; sourceTree = "<group>"; };
+		71BF221522C989290031F822 /* RepositoryClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryClient.swift; sourceTree = "<group>"; };
+		71BF221722C989610031F822 /* SearchGraphQLClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGraphQLClient.swift; sourceTree = "<group>"; };
+		71BF221922C98A7E0031F822 /* GraphQLViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLViewModel.swift; sourceTree = "<group>"; };
+		71BF221D22C98ADA0031F822 /* ViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelFactory.swift; sourceTree = "<group>"; };
+		71BF221F22C98B100031F822 /* ViewModelFactoryBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelFactoryBase.swift; sourceTree = "<group>"; };
+		71BF222122C98B740031F822 /* RepositoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryViewModel.swift; sourceTree = "<group>"; };
 		AB1DCA7D862BEB7D144E7E13 /* Pods-GithubGraphQLTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GithubGraphQLTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GithubGraphQLTests/Pods-GithubGraphQLTests.release.xcconfig"; sourceTree = "<group>"; };
 		ABCE96A0819665B92683A16A /* Pods_GithubGraphQL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GithubGraphQL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C46721E35993F32712F0753A /* Pods_GithubGraphQLTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GithubGraphQLTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,14 +172,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		7130924222C8530600AC373A /* GraphQLList */ = {
+		7130924222C8530600AC373A /* GraphQLQuery */ = {
 			isa = PBXGroup;
 			children = (
-				7130924522C8533D00AC373A /* ViewModel */,
+				71BF221B22C98AA40031F822 /* ViewModel */,
 				7130924422C8533800AC373A /* View */,
 				7130924322C8531C00AC373A /* Controllers */,
 			);
-			path = GraphQLList;
+			path = GraphQLQuery;
 			sourceTree = "<group>";
 		};
 		7130924322C8531C00AC373A /* Controllers */ = {
@@ -180,13 +198,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		7130924522C8533D00AC373A /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		7130924D22C879FD00AC373A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,21 +207,20 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		7130925522C8810F00AC373A /* Data */ = {
+		7130925522C8810F00AC373A /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				71BF21EF22C8874A0031F822 /* Edge+CoreDataClass.swift */,
-				71BF21F722C8883E0031F822 /* Edge+CoreDataProperties.swift */,
-				7130925D22C8857C00AC373A /* PageInfo+CoreDataClass.swift */,
-				71BF21F822C8883E0031F822 /* PageInfo+CoreDataProperties.swift */,
+				71BF220E22C988500031F822 /* APIModels */,
+				71BF220D22C988420031F822 /* Data */,
 				7130925622C8819F00AC373A /* GraphQLModel.xcdatamodeld */,
 			);
-			path = Data;
+			path = DataModel;
 			sourceTree = "<group>";
 		};
 		71BF21FB22C88A670031F822 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				71BF221C22C98AC40031F822 /* ViewModel Factory */,
 				71BF21FC22C88AD40031F822 /* Constants.swift */,
 			);
 			path = Shared;
@@ -224,6 +234,47 @@
 				71BF220022C88FE10031F822 /* CoreDataEntityItemViewController.swift */,
 			);
 			path = TestHooks;
+			sourceTree = "<group>";
+		};
+		71BF220D22C988420031F822 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				71BF21EF22C8874A0031F822 /* Edge+CoreDataClass.swift */,
+				71BF21F722C8883E0031F822 /* Edge+CoreDataProperties.swift */,
+				7130925D22C8857C00AC373A /* PageInfo+CoreDataClass.swift */,
+				71BF21F822C8883E0031F822 /* PageInfo+CoreDataProperties.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		71BF220E22C988500031F822 /* APIModels */ = {
+			isa = PBXGroup;
+			children = (
+				71BF220F22C988720031F822 /* APIFactory.swift */,
+				71BF221122C988820031F822 /* APIFactoryBase.swift */,
+				71BF221322C988930031F822 /* ApolloDataModelClient.swift */,
+				71BF221522C989290031F822 /* RepositoryClient.swift */,
+				71BF221722C989610031F822 /* SearchGraphQLClient.swift */,
+			);
+			path = APIModels;
+			sourceTree = "<group>";
+		};
+		71BF221B22C98AA40031F822 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				71BF221922C98A7E0031F822 /* GraphQLViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		71BF221C22C98AC40031F822 /* ViewModel Factory */ = {
+			isa = PBXGroup;
+			children = (
+				71BF221D22C98ADA0031F822 /* ViewModelFactory.swift */,
+				71BF221F22C98B100031F822 /* ViewModelFactoryBase.swift */,
+				71BF222122C98B740031F822 /* RepositoryViewModel.swift */,
+			);
+			path = "ViewModel Factory";
 			sourceTree = "<group>";
 		};
 		D9A10F93216C4AFD007998EC = {
@@ -251,8 +302,8 @@
 		D9A10F9E216C4AFD007998EC /* GithubGraphQL */ = {
 			isa = PBXGroup;
 			children = (
-				7130925522C8810F00AC373A /* Data */,
-				7130924222C8530600AC373A /* GraphQLList */,
+				7130925522C8810F00AC373A /* DataModel */,
+				7130924222C8530600AC373A /* GraphQLQuery */,
 				D9A10FCD216C4E71007998EC /* Managers */,
 				71BF21FB22C88A670031F822 /* Shared */,
 				7130924D22C879FD00AC373A /* Supporting Files */,
@@ -555,12 +606,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71BF221422C988930031F822 /* ApolloDataModelClient.swift in Sources */,
 				71BF21FA22C8883E0031F822 /* PageInfo+CoreDataProperties.swift in Sources */,
 				71BF21FD22C88AD40031F822 /* Constants.swift in Sources */,
+				71BF221022C988720031F822 /* APIFactory.swift in Sources */,
 				7130924922C8573F00AC373A /* GraphGLSubtitleTableViewCell.swift in Sources */,
 				7130925822C8819F00AC373A /* GraphQLModel.xcdatamodeld in Sources */,
+				71BF221E22C98ADA0031F822 /* ViewModelFactory.swift in Sources */,
 				D9A10FA2216C4AFD007998EC /* ViewController.swift in Sources */,
 				D9A10FE8216C77CD007998EC /* GraphQLManager.swift in Sources */,
+				71BF221622C989290031F822 /* RepositoryClient.swift in Sources */,
 				D9A10FF4216D93B8007998EC /* RepositoriesGraphQLRequest.swift in Sources */,
 				D9A10FEA216C77CD007998EC /* GraphQLAuthHTTPNetworkTransport.swift in Sources */,
 				71BF21F922C8883E0031F822 /* Edge+CoreDataProperties.swift in Sources */,
@@ -570,11 +625,16 @@
 				71BF220222C88FE10031F822 /* CoreDataEntityItemViewController.swift in Sources */,
 				D9A10FF2216D7501007998EC /* GraphQLResult.swift in Sources */,
 				71BF220122C88FE10031F822 /* CoreDataEntitiesViewController.swift in Sources */,
+				71BF221A22C98A7E0031F822 /* GraphQLViewModel.swift in Sources */,
+				71BF221222C988820031F822 /* APIFactoryBase.swift in Sources */,
+				71BF222222C98B740031F822 /* RepositoryViewModel.swift in Sources */,
 				D9A10FF0216C7805007998EC /* RepositoriesGraphQLClient.swift in Sources */,
 				7130925F22C8857C00AC373A /* PageInfo+CoreDataClass.swift in Sources */,
 				D9A10FE9216C77CD007998EC /* GraphQLClientProtocol.swift in Sources */,
+				71BF222022C98B100031F822 /* ViewModelFactoryBase.swift in Sources */,
 				7130924722C8536100AC373A /* GraphQLTableViewController.swift in Sources */,
 				D9A10FA0216C4AFD007998EC /* AppDelegate.swift in Sources */,
+				71BF221822C989610031F822 /* SearchGraphQLClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

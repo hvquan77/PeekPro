@@ -14,6 +14,7 @@ class GraphQLTableViewController: UITableViewController {
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     private var gqlQuery: SearchRepositoriesQuery?
     private let limit = 20
+    private let queryString = "graphql"
     //private var hasNextPage = true
     
     //private let refreshControl = UIRefreshControl()
@@ -73,7 +74,7 @@ class GraphQLTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == self.edges.count - 4 {
             if self.pages.first?.hasNextPage ?? false {
-                self.gqlQuery = SearchRepositoriesQuery.init(first: 20, after: self.pages.first?.endCursor ?? "", query: "graphql", type: SearchType.repository)
+                self.gqlQuery = SearchRepositoriesQuery.init(first: 20, after: self.pages.first?.endCursor ?? "", query: self.queryString, type: SearchType.repository)
                 self.fetchAndSaveGraphQLQuery()
             }
         }
@@ -83,10 +84,10 @@ class GraphQLTableViewController: UITableViewController {
     // TODO: To add this to the data model
     private func setupGraphQLQuery() {
         //Initialize query
-        self.gqlQuery = SearchRepositoriesQuery.init(first: 20, query: "graphql", type: SearchType.repository)
+        self.gqlQuery = SearchRepositoriesQuery.init(first: 20, query: self.queryString, type: SearchType.repository)
         
         // TODO: Paginated search Query
-        //self.gqlQuery = SearchRepositoriesQuery.init(first: 5, after: "Y3Vyc29yOjEwMA==", query: "graphql", type: SearchType.repository)
+        //self.gqlQuery = SearchRepositoriesQuery.init(first: 5, after: "Y3Vyc29yOjEwMA==", query: self.queryString, type: SearchType.repository)
     }
     
     private func addRefreshControl() {
@@ -120,7 +121,7 @@ class GraphQLTableViewController: UITableViewController {
                                 
                                 if let pageInfo = pageInfos.first as? PageInfo {
                                     print("pageInfo found")
-                                    pageInfo.queryString = "graphql"
+                                    pageInfo.queryString = self.queryString
                                     pageInfo.typeName = pageInfoData.__typename
                                     pageInfo.endCursor = pageInfoData.endCursor
                                     pageInfo.startCursor = pageInfoData.startCursor
@@ -129,7 +130,7 @@ class GraphQLTableViewController: UITableViewController {
                                 } else {
                                     print("pageInfo NOT found")
                                     let pageInfo = PageInfo(entity: PageInfo.entity(), insertInto: self.context)
-                                    pageInfo.queryString = "graphql"
+                                    pageInfo.queryString = self.queryString
                                     pageInfo.typeName = pageInfoData.__typename
                                     pageInfo.endCursor = pageInfoData.endCursor
                                     pageInfo.startCursor = pageInfoData.startCursor
