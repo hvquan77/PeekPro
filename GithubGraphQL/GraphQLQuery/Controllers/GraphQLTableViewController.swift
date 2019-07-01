@@ -76,13 +76,14 @@ extension GraphQLTableViewController : UITableViewDataSource {
         
         if let cell = cell as? GraphGLSubtitleTableViewCell {
             if let edges = self.viewModel?.edges {
-                cell.title.text = edges[indexPath.row].name ?? ""
-                cell.details.text = """
+                let details = """
                 Path: \(edges[indexPath.row].url ?? "")
                 Owner: \(edges[indexPath.row].login ?? "")
                 Avatar: \(edges[indexPath.row].avatarUrl ?? "")
                 Stars: \(edges[indexPath.row].stargazersTotalCount)
                 """
+                
+                cell.setupCell(title: edges[indexPath.row].name ?? "", details: details)
             }
             
             return cell

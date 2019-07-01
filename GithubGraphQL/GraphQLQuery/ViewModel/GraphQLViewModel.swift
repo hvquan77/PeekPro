@@ -13,7 +13,7 @@ class GraphQLViewModel : RepositoryViewModel {
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     private var gqlQuery: SearchRepositoriesQuery
-    private let limit = 20 // TODO: add to protocol
+    private let limit = 35 // TODO: add to protocol
     private let queryString = "graphql"  // TODO: add to protocol
     private let searchType = SearchType.repository  // TODO: to add to protocol
     internal var edges = [Edge]()
@@ -24,7 +24,7 @@ class GraphQLViewModel : RepositoryViewModel {
     }
 
     func fetchAndSave(after: String? = nil, success: @escaping (() -> Void), failure: @escaping ((Error) -> Void)) {
-        self.gqlQuery = SearchRepositoriesQuery.init(first: 20, after: after, query: self.queryString, type: SearchType.repository)
+        self.gqlQuery = SearchRepositoriesQuery.init(first: self.limit, after: after, query: self.queryString, type: self.searchType)
         
         RepositoriesGraphQLClient.searchRepositories(query: self.gqlQuery) { (result) in
             switch result {
