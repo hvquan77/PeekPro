@@ -53,8 +53,6 @@ class GraphQLTableViewController : UIViewController {
             }
         }
     }
-    
-    // TODO: refreshControl would be nice to have. Will require a cleanup function.
 }
 
 // MARK: - UITableViewDelegate

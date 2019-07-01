@@ -4,8 +4,8 @@ import CoreData
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-  var window: UIWindow?
-
+    var window: UIWindow?
+    
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: Constants.dataModelName)
         container.loadPersistentStores(completionHandler: {
@@ -29,8 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-  func application(_ application: UIApplication,
-                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    return true
-  }
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        return true
+    }
 }

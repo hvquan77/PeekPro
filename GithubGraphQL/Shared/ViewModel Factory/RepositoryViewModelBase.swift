@@ -28,7 +28,7 @@ class RepositoryViewModelBase : SearchRepository {
     private var gqlQuery: SearchRepositoriesQuery
     var limit = 5
     var queryString = ""
-    var searchType = SearchType.repository
+    let searchType = SearchType.repository
     var edges = [Edge]()
     var pageInfos = [PageInfo]()
     
@@ -39,11 +39,11 @@ class RepositoryViewModelBase : SearchRepository {
     init(limit: Int, queryString: String) {
         self.limit = limit
         self.queryString = queryString
-        self.gqlQuery = SearchRepositoriesQuery.init(first: self.limit, query: self.queryString, type: self.searchType)
+        self.gqlQuery = SearchRepositoriesQuery.init(first: limit, query: queryString, type: self.searchType)
     }
     
     func fetchAndSave(startIndex: Int? = 0, after: String? = nil, success: @escaping (() -> Void), failure: @escaping ((Error) -> Void)) {
-        self.gqlQuery = SearchRepositoriesQuery.init(first: self.limit, after: after, query: self.queryString, type: self.searchType)
+        self.setupQuery(limit: self.limit, after: after, queryString: self.queryString, type: self.searchType)
         
         RepositoriesGraphQLClient.searchRepositories(query: self.gqlQuery) { (result) in
             switch result {
@@ -68,6 +68,12 @@ class RepositoryViewModelBase : SearchRepository {
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
+    }
+    
+    private func setupQuery(limit: Int, after: String? = nil, queryString: String, type: SearchType) {
+        self.limit = limit
+        self.queryString = queryString
+        self.gqlQuery = SearchRepositoriesQuery.init(first: limit, after: after, query: queryString, type: self.searchType)
     }
     
     private func buildPageInfo(data: SearchRepositoriesQuery.Data?) {
