@@ -8,6 +8,8 @@
 
 import Foundation
 
-protocol ViewModelFactory {
-    func createGraphQLViewModel() -> RepositoryViewModel?
+class ViewModelFactory : ViewModelFactoryBase {
+    func createGraphQLViewModel() -> RepositoryViewModel? {
+        return GraphQLViewModel()
+    }
 }

@@ -90,6 +90,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="GraphQL list" id="udn-tQ-ocr"/>
+                    <connections>
+                        <outlet property="tableView" destination="2py-fA-xOX" id="a7s-qm-Cov"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o6e-4w-9JX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -138,7 +141,7 @@
         <!--CoreData-->
         <scene sceneID="KGa-Z1-RX0">
             <objects>
-                <viewController storyboardIdentifier="CoreDataEntitiesViewControllerId" automaticallyAdjustsScrollViewInsets="NO" id="nYB-ZA-5o6" customClass="CoreDataEntitiesViewController" customModule="SharePoint" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CoreDataEntitiesViewControllerId" automaticallyAdjustsScrollViewInsets="NO" id="nYB-ZA-5o6" customClass="CoreDataEntitiesViewController" customModule="GithubGraphQL" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SJ1-Gp-rGJ"/>
                         <viewControllerLayoutGuide type="bottom" id="e45-cx-yqj"/>
@@ -175,7 +178,7 @@
         <!--Core Data Entity Item View Controller-->
         <scene sceneID="O7E-e8-QXu">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="sa9-xZ-wip" customClass="CoreDataEntityItemViewController" customModule="SharePoint" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="sa9-xZ-wip" customClass="CoreDataEntityItemViewController" customModule="GithubGraphQL" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ETb-g5-4n1"/>
                         <viewControllerLayoutGuide type="bottom" id="rbN-Ck-2Uc"/>
@@ -188,7 +191,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CoreDataEntityItemCellId" id="stJ-KJ-2Lo" customClass="CoreDataEntityItemTableViewCell" customModule="SharePoint" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CoreDataEntityItemCellId" id="stJ-KJ-2Lo" customClass="CoreDataEntityItemTableViewCell" customModule="GithubGraphQL" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="stJ-KJ-2Lo" id="Qk2-TF-Sox">
