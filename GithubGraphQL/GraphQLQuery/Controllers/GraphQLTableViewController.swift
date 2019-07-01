@@ -11,7 +11,6 @@ import CoreData
 
 class GraphQLTableViewController : UIViewController {
     private var viewModel: RepositoryViewModel? = nil
-    private let refreshControl = UIRefreshControl()
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -19,7 +18,6 @@ class GraphQLTableViewController : UIViewController {
         super.viewDidLoad()
         
         self.setupViewModel()
-        self.addRefreshControl()
         self.refresh()
     }
 
@@ -28,22 +26,9 @@ class GraphQLTableViewController : UIViewController {
         self.viewModel = ViewModelFactory().createGraphQLViewModel()
     }
     
-    private func addRefreshControl() {
-        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        refreshControl.addTarget(self,
-                                 action: #selector(type(of: self).pullToRefresh),
-                                 for: UIControl.Event.valueChanged)
-        
-        //refreshControl.attributedTitle = NSAttributedString(string: "Fetching GraphQL data...")
-        refreshControl.attributedTitle = NSAttributedString(string: "Fetching GraphQL data...", attributes: attributes)
-        refreshControl.tintColor = UIColor.white
-        self.tableView.addSubview(refreshControl)
-    }
-    
     private func fetchAndSaveGraphQLQuery(after: String? = nil) {
         self.viewModel?.fetchAndSave(after: after, success: {
             DispatchQueue.main.async {
-                self.refreshControl.endRefreshing()
                 self.refresh()
             }}, failure: { (error: Error) in
                 print(error)
@@ -63,14 +48,6 @@ class GraphQLTableViewController : UIViewController {
                 self.tableView?.reloadData()
             }
         }
-    }
-    
-    /**
-     Trigger refresh on view model and show refresh animation
-     */
-    @objc func pullToRefresh() {
-        self.setupViewModel()
-        self.fetchAndSaveGraphQLQuery()
     }
 }
 

@@ -17,9 +17,6 @@
 		71BF21F922C8883E0031F822 /* Edge+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF21F722C8883E0031F822 /* Edge+CoreDataProperties.swift */; };
 		71BF21FA22C8883E0031F822 /* PageInfo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF21F822C8883E0031F822 /* PageInfo+CoreDataProperties.swift */; };
 		71BF21FD22C88AD40031F822 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF21FC22C88AD40031F822 /* Constants.swift */; };
-		71BF220122C88FE10031F822 /* CoreDataEntitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF21FF22C88FE10031F822 /* CoreDataEntitiesViewController.swift */; };
-		71BF220222C88FE10031F822 /* CoreDataEntityItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF220022C88FE10031F822 /* CoreDataEntityItemViewController.swift */; };
-		71BF220422C8922C0031F822 /* CoreDataEntityItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF220322C8922C0031F822 /* CoreDataEntityItemTableViewCell.swift */; };
 		71BF221022C988720031F822 /* APIFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF220F22C988720031F822 /* APIFactory.swift */; };
 		71BF221222C988820031F822 /* APIFactoryBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF221122C988820031F822 /* APIFactoryBase.swift */; };
 		71BF221422C988930031F822 /* ApolloDataModelClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BF221322C988930031F822 /* ApolloDataModelClient.swift */; };
@@ -80,9 +77,6 @@
 		71BF21F722C8883E0031F822 /* Edge+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Edge+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		71BF21F822C8883E0031F822 /* PageInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PageInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		71BF21FC22C88AD40031F822 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		71BF21FF22C88FE10031F822 /* CoreDataEntitiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataEntitiesViewController.swift; sourceTree = "<group>"; };
-		71BF220022C88FE10031F822 /* CoreDataEntityItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataEntityItemViewController.swift; sourceTree = "<group>"; };
-		71BF220322C8922C0031F822 /* CoreDataEntityItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataEntityItemTableViewCell.swift; sourceTree = "<group>"; };
 		71BF220F22C988720031F822 /* APIFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIFactory.swift; sourceTree = "<group>"; };
 		71BF221122C988820031F822 /* APIFactoryBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIFactoryBase.swift; sourceTree = "<group>"; };
 		71BF221322C988930031F822 /* ApolloDataModelClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloDataModelClient.swift; sourceTree = "<group>"; };
@@ -226,16 +220,6 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		71BF21FE22C88F390031F822 /* TestHooks */ = {
-			isa = PBXGroup;
-			children = (
-				71BF220322C8922C0031F822 /* CoreDataEntityItemTableViewCell.swift */,
-				71BF21FF22C88FE10031F822 /* CoreDataEntitiesViewController.swift */,
-				71BF220022C88FE10031F822 /* CoreDataEntityItemViewController.swift */,
-			);
-			path = TestHooks;
-			sourceTree = "<group>";
-		};
 		71BF220D22C988420031F822 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -307,7 +291,6 @@
 				D9A10FCD216C4E71007998EC /* Managers */,
 				71BF21FB22C88A670031F822 /* Shared */,
 				7130924D22C879FD00AC373A /* Supporting Files */,
-				71BF21FE22C88F390031F822 /* TestHooks */,
 				D9A10F9F216C4AFD007998EC /* AppDelegate.swift */,
 				D9A10FA8216C4AFD007998EC /* LaunchScreen.storyboard */,
 				D9A10FA3216C4AFD007998EC /* Main.storyboard */,
@@ -620,11 +603,8 @@
 				D9A10FEA216C77CD007998EC /* GraphQLAuthHTTPNetworkTransport.swift in Sources */,
 				71BF21F922C8883E0031F822 /* Edge+CoreDataProperties.swift in Sources */,
 				71BF21F122C8874A0031F822 /* Edge+CoreDataClass.swift in Sources */,
-				71BF220422C8922C0031F822 /* CoreDataEntityItemTableViewCell.swift in Sources */,
 				D9C8E128216DBA11002A64FC /* API.swift in Sources */,
-				71BF220222C88FE10031F822 /* CoreDataEntityItemViewController.swift in Sources */,
 				D9A10FF2216D7501007998EC /* GraphQLResult.swift in Sources */,
-				71BF220122C88FE10031F822 /* CoreDataEntitiesViewController.swift in Sources */,
 				71BF221A22C98A7E0031F822 /* GraphQLViewModel.swift in Sources */,
 				71BF221222C988820031F822 /* APIFactoryBase.swift in Sources */,
 				71BF222222C98B740031F822 /* RepositoryViewModel.swift in Sources */,
