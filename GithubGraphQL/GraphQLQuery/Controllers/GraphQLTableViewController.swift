@@ -8,9 +8,11 @@
 
 import UIKit
 
+/// The View Controller for GraphQL query
 class GraphQLTableViewController : UITableViewController {
     private var viewModel: RepositoryViewModelBase? = nil
-    private let lookAheadIndex = 5  // number of indeces to look ahead for Pagenation
+    private let lookAheadIndex = 5  // number of indeces to look ahead for Pagination
+    private let cellHeight = 105
         
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -95,7 +97,7 @@ class GraphQLTableViewController : UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat(105)
+        return CGFloat(self.cellHeight)
     }
 
     // MARK: - UITableViewDataSource

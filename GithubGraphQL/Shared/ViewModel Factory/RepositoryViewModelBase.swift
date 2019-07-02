@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+/// A GitHubb Search View Model that is tailored for searching repositories
 class RepositoryViewModelBase : SearchGitViewModelBase {
     private let defaultLimit = 10
     private let defaultQueryString = "repositorySample"

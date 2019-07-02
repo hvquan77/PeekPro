@@ -17,10 +17,25 @@ protocol SearchRepository {
     var pageInfos: [PageInfo] { get }
     var edges: [Edge] { get }
     
+    /**
+     Fetches records from data model and also makes a Search API call to get latest data.
+     The data is written back to the data model and saved.
+     - parameter startIndex:    starting index for next set of results for pagination
+     - parameter after:         afterCursor for where to start pagination
+     - parameter success:       completion handler for success
+     - parameter failure:       completion handler for failure
+     */
     func fetchAndSave(startIndex: Int, after: String?, success: @escaping (() -> Void), failure: @escaping ((Error) -> Void))
     
+    /**
+     Fetches latest records from data model.
+     - parameter success:       completion handler
+     */
     func syncFromCache(completion: () -> Void)
     
+    /**
+     Removes all records from data models
+     */
     func removeAllCache()
 }
 
@@ -76,12 +91,23 @@ class SearchGitViewModelBase : SearchRepository {
         }
     }
     
+    /**
+     Helper function to rebuild SearchRepositoryQuery object
+     - parameter limit:         maximum number of edges/results to return
+     - parameter after:         afterCursor for where to start pagination (optional)
+     - parameter queryString:   query string to search for
+     - parameter type:          search type
+     */
     func setupQuery(limit: Int, after: String? = nil, queryString: String, type: SearchType) {
         self.limit = limit
         self.queryString = queryString
         self.gqlQuery = SearchRepositoriesQuery.init(first: limit, after: after, query: queryString, type: self.searchType)
     }
     
+    /**
+     Helper function to build the PageInfo item
+     - parameter data:    SearchRepositoriesQuery data object
+     */
     func buildPageInfo(data: SearchRepositoriesQuery.Data?) {
         if let pageInfoData = data?.search.pageInfo {
             do
@@ -115,6 +141,13 @@ class SearchGitViewModelBase : SearchRepository {
         }
     }
     
+    /**
+     Helper function to build each item (ie. result). This must be overridden by subclass
+     - parameter startIndex:    starting index for next set of results for pagination (optional)
+     - parameter data:          SearchRepositoriesQuery data object
+     - parameter success:       completion handler for success
+     - parameter failure:       completion handler for failure
+     */
     func buildEdges(startIndex: Int = 0, data: SearchRepositoriesQuery.Data?, success: () -> Void, failure: (Error) -> Void) {
         assert(false, "Subclass must override this function.")
     }

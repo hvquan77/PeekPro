@@ -21,17 +21,15 @@ Since this is based on [The Peek iOS Coding Challenge](https://github.com/gadabo
 The Manager classes were written as part of the standard template and it uses CocoaPods to leverage Apollo iOS Client to pull data from the Github API. 
 
 ##Setup
-Please see [The Peek iOS Coding Challenge](https://github.com/gadabout/github-graphql) for initial setup instructions.
-
-After reading the original challenge, follow these steps to install
 
 1. Make sure you have [Cocoapod](https://cocoapods.org/) installed on your dev box.
 2. Clone this project.
+3. Similar to [The Peek iOS Coding Challenge](https://github.com/gadabout/github-graphql), in order to pull data from Github API, please generate an access [token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/). The `githubToken` varaible will need to be updated the `GraphQLClientProtocol.swift` file.
 3. From your git repo folder: ```pod update```
 4. Build and run
 
 ###Troubleshooting
-If you run into issues (like I did), here are some helpful tips that are helpful:
+If you run into issues, here are some helpful tips that could unblock you:
 
 * Error: [Latest version of apollo-ios does not support Apollo-Cli 1.9.x](https://github.com/apollographql/apollo-ios/issues/374) 
 * Error: [The version of Apollo.framework in your project requires Apollo CLI 1.2.0...](https://github.com/apollographql/apollo-ios/issues/334)

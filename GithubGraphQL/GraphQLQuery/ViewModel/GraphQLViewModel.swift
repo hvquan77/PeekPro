@@ -8,6 +8,7 @@
 import UIKit
 import Foundation
 
+/// A subclass of Repository search typed View Model for GitHub Search
 class GraphQLViewModel : RepositoryViewModelBase {
     private let defaultLimit = 35
     private let defaultQueryString = "graphql"

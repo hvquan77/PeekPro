@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// General shared repository for common constants
 struct Constants {
     static let dataModelName = "GraphQLModel"
 }

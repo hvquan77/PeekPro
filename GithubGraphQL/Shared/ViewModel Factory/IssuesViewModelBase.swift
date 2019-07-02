@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+/// A GitHubb Search View Model that is tailored for searching issues
 class IssuesViewModelBase : SearchGitViewModelBase {
     private let defaultLimit = 10
     private let defaultQueryString = "react-native"
