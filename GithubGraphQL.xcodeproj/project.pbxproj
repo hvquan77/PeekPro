@@ -10,6 +10,7 @@
 		2D0EBE7933A210CBDF1631C2 /* Pods_GithubGraphQLTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C46721E35993F32712F0753A /* Pods_GithubGraphQLTests.framework */; };
 		66447F698A2C863913E91896 /* Pods_GithubGraphQL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABCE96A0819665B92683A16A /* Pods_GithubGraphQL.framework */; };
 		7120F38F22CB23C500D748C2 /* GraphGLResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7120F38E22CB23C500D748C2 /* GraphGLResultTableViewCell.swift */; };
+		7120F39322CB4A0400D748C2 /* SearchGitViewModelBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7120F39222CB4A0400D748C2 /* SearchGitViewModelBase.swift */; };
 		7130924722C8536100AC373A /* GraphQLTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130924622C8536100AC373A /* GraphQLTableViewController.swift */; };
 		7130924922C8573F00AC373A /* GraphGLSubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130924822C8573F00AC373A /* GraphGLSubtitleTableViewCell.swift */; };
 		7130925822C8819F00AC373A /* GraphQLModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7130925622C8819F00AC373A /* GraphQLModel.xcdatamodeld */; };
@@ -66,6 +67,7 @@
 		219D3FB4F2DCC24AE77C8CD7 /* Pods-GithubGraphQLTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GithubGraphQLTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GithubGraphQLTests/Pods-GithubGraphQLTests.debug.xcconfig"; sourceTree = "<group>"; };
 		696FECE5EDEC8B0066CC5A95 /* Pods_GithubGraphQLUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GithubGraphQLUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7120F38E22CB23C500D748C2 /* GraphGLResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphGLResultTableViewCell.swift; sourceTree = "<group>"; };
+		7120F39222CB4A0400D748C2 /* SearchGitViewModelBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGitViewModelBase.swift; sourceTree = "<group>"; };
 		7130924622C8536100AC373A /* GraphQLTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLTableViewController.swift; sourceTree = "<group>"; };
 		7130924822C8573F00AC373A /* GraphGLSubtitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphGLSubtitleTableViewCell.swift; sourceTree = "<group>"; };
 		7130925722C8819F00AC373A /* GraphQLModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GraphQLModel.xcdatamodel; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				71BF221D22C98ADA0031F822 /* ViewModelFactory.swift */,
 				71BF221F22C98B100031F822 /* ViewModelFactoryBase.swift */,
 				71BF222122C98B740031F822 /* RepositoryViewModelBase.swift */,
+				7120F39222CB4A0400D748C2 /* SearchGitViewModelBase.swift */,
 			);
 			path = "ViewModel Factory";
 			sourceTree = "<group>";
@@ -586,6 +589,7 @@
 				71BF221A22C98A7E0031F822 /* GraphQLViewModel.swift in Sources */,
 				71BF222222C98B740031F822 /* RepositoryViewModelBase.swift in Sources */,
 				D9A10FF0216C7805007998EC /* RepositoriesGraphQLClient.swift in Sources */,
+				7120F39322CB4A0400D748C2 /* SearchGitViewModelBase.swift in Sources */,
 				7130925F22C8857C00AC373A /* PageInfo+CoreDataClass.swift in Sources */,
 				D9A10FE9216C77CD007998EC /* GraphQLClientProtocol.swift in Sources */,
 				71BF222022C98B100031F822 /* ViewModelFactoryBase.swift in Sources */,

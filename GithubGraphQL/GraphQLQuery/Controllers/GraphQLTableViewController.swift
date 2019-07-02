@@ -58,6 +58,7 @@ class GraphQLTableViewController : UITableViewController {
     }
     
     @objc private func pullToRefresh() {
+        print("Pulled to refresh.")
         // BUG: App crashes when adding the following lines.
         // self.viewModel?.removeAllCache()
         // self.tableView?.reloadData()
