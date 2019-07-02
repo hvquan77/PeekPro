@@ -13,7 +13,7 @@
         <scene sceneID="0yA-ET-t2n">
             <objects>
                 <tableViewController id="UkP-7u-oAJ" customClass="GraphQLTableViewController" customModule="GithubGraphQL" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="2py-fA-xOX">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="2py-fA-xOX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -46,6 +46,88 @@
                                     <outlet property="title" destination="ZHh-k8-bZR" id="65l-hu-BQL"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" indentationWidth="10" reuseIdentifier="graphGLResultCell" rowHeight="105" id="ack-j8-sax" userLabel="Result Cell" customClass="GraphGLResultTableViewCell" customModule="GithubGraphQL" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="375" height="105"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ack-j8-sax" id="kRZ-23-OhD">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="104.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="p1m-L9-3dX" userLabel="Avatar Stack">
+                                            <rect key="frame" x="10" y="10" width="66" height="83"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="test_avatar" translatesAutoresizingMaskIntoConstraints="NO" id="Rxr-K2-Aiq" userLabel="avatar">
+                                                    <rect key="frame" x="0.0" y="0.0" width="66" height="66"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="66" id="7mb-sY-cIq"/>
+                                                        <constraint firstAttribute="width" constant="66" id="jYd-Rg-NQe"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fpx-fJ-BdI" userLabel="Logon">
+                                                    <rect key="frame" x="0.0" y="66" width="66" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="xEK-xS-Hgk" userLabel="Description Stack">
+                                            <rect key="frame" x="88" y="13" width="51.5" height="60"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f3q-Hz-hJp">
+                                                    <rect key="frame" x="0.0" y="0.0" width="35" height="21.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="Details" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eds-5w-j7l">
+                                                    <rect key="frame" x="0.0" y="22.5" width="39" height="14.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0OR-01-C5V">
+                                                    <rect key="frame" x="0.0" y="38" width="2" height="6"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="5"/>
+                                                    <color key="textColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="kwt-FZ-VdX" userLabel="Count Stack">
+                                                    <rect key="frame" x="0.0" y="45" width="51.5" height="15"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="XgX-ol-bba">
+                                                            <rect key="frame" x="0.0" y="0.0" width="15" height="15"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="15" id="ikA-SO-iqf"/>
+                                                                <constraint firstAttribute="height" constant="15" id="rm7-m7-Pbo"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nAL-1m-jgj">
+                                                            <rect key="frame" x="17" y="0.0" width="34.5" height="15"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="xEK-xS-Hgk" firstAttribute="leading" secondItem="p1m-L9-3dX" secondAttribute="trailing" constant="12" id="Agz-GC-3ps"/>
+                                        <constraint firstItem="p1m-L9-3dX" firstAttribute="top" secondItem="kRZ-23-OhD" secondAttribute="top" constant="10" id="KMr-xE-EVk"/>
+                                        <constraint firstItem="p1m-L9-3dX" firstAttribute="leading" secondItem="kRZ-23-OhD" secondAttribute="leading" constant="10" id="lyO-ci-haZ"/>
+                                        <constraint firstItem="xEK-xS-Hgk" firstAttribute="top" secondItem="kRZ-23-OhD" secondAttribute="top" constant="13" id="zxW-dI-UTs"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="avatar" destination="Rxr-K2-Aiq" id="sXn-wa-092"/>
+                                    <outlet property="count" destination="nAL-1m-jgj" id="Ml3-na-bZZ"/>
+                                    <outlet property="details" destination="Eds-5w-j7l" id="DMl-4E-4Jh"/>
+                                    <outlet property="logon" destination="Fpx-fJ-BdI" id="lrz-fg-ffK"/>
+                                    <outlet property="title" destination="f3q-Hz-hJp" id="uP7-jW-auV"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <sections/>
                         <connections>
@@ -60,7 +142,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o6e-4w-9JX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1905" y="-575"/>
+            <point key="canvasLocation" x="1904.8" y="-575.26236881559225"/>
         </scene>
         <!--Homework-->
         <scene sceneID="L7R-Lo-wY3">
@@ -88,5 +170,7 @@
     </scenes>
     <resources>
         <image name="square" width="30" height="30"/>
+        <image name="star" width="256" height="256"/>
+        <image name="test_avatar" width="201" height="201"/>
     </resources>
 </document>

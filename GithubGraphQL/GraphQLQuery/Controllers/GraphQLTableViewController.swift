@@ -72,27 +72,31 @@ extension GraphQLTableViewController : UITableViewDelegate {
             }
         }
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return CGFloat(105)
+    }
 }
 
 // MARK: - UITableViewDataSource
 extension GraphQLTableViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: GraphGLSubtitleTableViewCell.name, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: GraphGLResultTableViewCell.name, for: indexPath)
         
-        if let cell = cell as? GraphGLSubtitleTableViewCell {
-            if let edges = self.viewModel?.edges {
-                let details = """
-                Path: \(edges[indexPath.row].url ?? "")
-                Owner: \(edges[indexPath.row].login ?? "")
-                Avatar: \(edges[indexPath.row].avatarUrl ?? "")
-                Stars: \(edges[indexPath.row].stargazersTotalCount)
-                """
-                
-                cell.setupCell(title: edges[indexPath.row].name ?? "", details: details)
-            }
-            return cell
+        if let cell = cell as? GraphGLResultTableViewCell, let edges = self.viewModel?.edges {
+            cell.setupCell(edge: edges[indexPath.row])
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let edges = self.viewModel?.edges,
+            let gitUrl = edges[indexPath.row].url,
+            let url = URL(string: gitUrl) {
+            
+            UIApplication.shared.open(url)
         }
         
-        return cell
+        self.tableView?.deselectRow(at: indexPath, animated: true)
     }
 }
