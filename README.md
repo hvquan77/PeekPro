@@ -1,7 +1,6 @@
 # Peek Repo
 
-<img src="resources/peek_repo_1024x1024.png" width="200">
-<img src="https://cdn.worldvectorlogo.com/logos/graphql.svg" width="200" height="100" />
+<img src="resources/peek_repo_1024x1024.png" width="200"><img src="https://cdn.worldvectorlogo.com/logos/graphql.svg" width="200" height="100" />
 
 ## Introduction
 Introducing Peek Repo, a new way to view GitHub repositories on mobile! This app was created based on real customer asks.  Just kidding, this app was created in response to [The Peek iOS Coding Challenge](https://github.com/gadabout/github-graphql). 
@@ -20,7 +19,7 @@ Since this is based on [The Peek iOS Coding Challenge](https://github.com/gadabo
 
 The Manager classes were written as part of the standard template and it uses CocoaPods to leverage Apollo iOS Client to pull data from the Github API. 
 
-##Setup
+## Setup
 
 1. Make sure you have [Cocoapod](https://cocoapods.org/) installed on your dev box.
 2. Clone this project.
@@ -28,7 +27,7 @@ The Manager classes were written as part of the standard template and it uses Co
 3. From your git repo folder: ```pod update```
 4. Build and run
 
-###Troubleshooting
+### Troubleshooting
 If you run into issues, here are some helpful tips that could unblock you:
 
 * Error: [Latest version of apollo-ios does not support Apollo-Cli 1.9.x](https://github.com/apollographql/apollo-ios/issues/374) 
@@ -39,7 +38,7 @@ If you run into issues, here are some helpful tips that could unblock you:
 * Error: Package.json not found during Build process
 	* Copy package.json from node_modules\apollo to GithubGraphGL folder
 
-##Design
+## Design
 The GraphQLQuery View is design using the MVVM pattern in mind. As you expect, there are three primary components:
 
 1. **Views** and **View Controllers** that present the data.
@@ -71,7 +70,7 @@ Both were created using Core Data and were used to manage the model layer object
 **```PageInfo```** - Table/Entity that stores the current page data. The page data contains information about current "page" of information. An attribute was created for each property.  Additionally, I added ```queryString``` (String) as a key to filter when the ViewModel does our fetch. 
 
 
-<img src="resources/pageinfo_entity.png" width="700">
+<img src="resources/pageInfo_entity.png" width="700">
 
 **```Edge```** - Think of an edge as a result item. Each Edge has properties and depending on your ```SearchType``` the properties would be different. For Repositories, the data returned included repo name, url, owner, etc. Each of these properties became Attributes for this entity. Additionally, I added ```queryString``` (String) and ```order``` (Int) for maintaining order of the items.
 
@@ -81,7 +80,7 @@ Both were created using Core Data and were used to manage the model layer object
 
 * Entity Relationships were not used in this project though it would have been easy to do, particularly between ```PageInfo``` and ```Edge```. Imagine a world where PeekPro supported a Search Controller where different queries could be entered. Relating one ```PageInfo``` to many ```Edge``` would make sense and easy to do.
 
-##Developer notes
+## Developer notes
 This was created over the course of a weekend so this is a demo and not a fully featured app. It demonstrates the core functionality required as described in [The Peek iOS Coding Challenge](https://github.com/gadabout/github-graphql) with room for improvement.
 
 Additional work items to add in the future:
