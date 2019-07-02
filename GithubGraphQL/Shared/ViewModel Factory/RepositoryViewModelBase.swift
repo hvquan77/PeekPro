@@ -19,6 +19,8 @@ protocol SearchRepository {
     func fetchAndSave(startIndex: Int?, after: String?, success: @escaping (() -> Void), failure: @escaping ((Error) -> Void))
     
     func syncFromCache(completion: () -> Void)
+    
+    func removeAllCache()
 }
 
 class RepositoryViewModelBase : SearchRepository {
@@ -62,7 +64,7 @@ class RepositoryViewModelBase : SearchRepository {
     
     func syncFromCache(completion: () -> Void ) {
         do {
-            self.edges = try context.fetch(Edge.fetchRequest(isAscending: true))
+            self.edges = try context.fetch(Edge.fetchRequest(queryString: self.queryString, isAscending: true))
             self.pageInfos = try context.fetch(PageInfo.fetchRequest())
             completion()
         } catch let error as NSError {
@@ -112,7 +114,7 @@ class RepositoryViewModelBase : SearchRepository {
     private func buildEdges(startIndex: Int? = 0, data: SearchRepositoriesQuery.Data?, success: () -> Void, failure: (Error) -> Void) {
         do
         {
-            let edges = try self.context.fetch(Edge.fetchRequest(isAscending: true))
+            let edges = try self.context.fetch(Edge.fetchRequest(queryString: self.queryString, isAscending: true))
             if let count =  data?.search.edges?.count {
                 for itemIndex in 0..<count {
                     guard let gqlEdge = data?.search.edges?[itemIndex] else { return }
@@ -120,6 +122,7 @@ class RepositoryViewModelBase : SearchRepository {
                     
                     if let index = edges.firstIndex(where: { $0.name == repository.name }) {
                         print( "Edge \(edges[index].name ?? "") found" )
+                        edges[index].queryString = self.queryString
                         edges[index].order = Int32(itemIndex + (startIndex ?? 0))
                         edges[index].name = repository.name
                         edges[index].url = repository.url
@@ -131,6 +134,7 @@ class RepositoryViewModelBase : SearchRepository {
                     } else {
                         print( "Edge \(repository.name) NOT found**" )
                         let edge = Edge(entity: Edge.entity(), insertInto: self.context)
+                        edge.queryString = self.queryString
                         edge.order = Int32(itemIndex + (startIndex ?? 0))
                         edge.name = repository.name
                         edge.url = repository.url
@@ -150,4 +154,15 @@ class RepositoryViewModelBase : SearchRepository {
             failure(error)
         }
     }
+    
+    func removeAllCache() {
+        do {
+            let _ = try context.execute(Edge.batchDeleteRequest())
+            let _ = try context.execute(PageInfo.batchDeleteRequest())
+            print("Cleared all Core Data")
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
+
 }

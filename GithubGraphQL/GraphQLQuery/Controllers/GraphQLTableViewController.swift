@@ -8,12 +8,10 @@
 
 import UIKit
 
-class GraphQLTableViewController : UIViewController {
+class GraphQLTableViewController : UITableViewController {
     private var viewModel: RepositoryViewModelBase? = nil
     private let lookAheadIndex = 5  // number of indeces to look ahead for Pagenation
-    
-    @IBOutlet weak var tableView: UITableView!
-    
+        
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.setupViewModel()
@@ -21,6 +19,7 @@ class GraphQLTableViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setupPullToRefresh()
         self.refresh()
     }
 
@@ -29,13 +28,17 @@ class GraphQLTableViewController : UIViewController {
         self.viewModel = ViewModelFactory().createGraphQLViewModel()
     }
     
-    private func fetchAndSaveGraphQLQuery(startIndex: Int? = 0, after: String? = nil) {
-        self.viewModel?.fetchAndSave(startIndex: startIndex, after: after, success: {
-            DispatchQueue.main.async {
-                self.refresh()
-            }}, failure: { (error: Error) in
-                print(error)
-        })
+    private func setupPullToRefresh() {
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.addTarget(self,
+                                  action: #selector(GraphQLTableViewController.pullToRefresh),
+                                  for: UIControl.Event.valueChanged)
+        self.refreshControl?.attributedTitle = NSAttributedString(string: "Fetching GraphQL data...")
+
+        
+        if let refreshControl = self.refreshControl {
+            self.tableView?.addSubview(refreshControl)
+        }
     }
     
     // MARK: - Private functions
@@ -53,19 +56,31 @@ class GraphQLTableViewController : UIViewController {
             }
         }
     }
-}
+    
+    @objc private func pullToRefresh() {
+        self.fetchAndSaveGraphQLQuery()
+    }
+    
+    private func fetchAndSaveGraphQLQuery(startIndex: Int? = 0, after: String? = nil) {
+        self.viewModel?.fetchAndSave(startIndex: startIndex, after: after, success: {
+            DispatchQueue.main.async { [weak self] in
+                self?.refreshControl?.endRefreshing()
+                self?.refresh()
+            }}, failure: { (error: Error) in
+                print(error)
+        })
+    }
 
-// MARK: - UITableViewDelegate
-extension GraphQLTableViewController : UITableViewDelegate {
-    func numberOfSections(in tableView: UITableView) -> Int {
+    // MARK: - UITableViewDelegate
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel?.edges.count ?? 0
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let edges = self.viewModel?.edges, indexPath.row == edges.count - self.lookAheadIndex {
             if let first = self.viewModel?.pageInfos.first, first.hasNextPage {
                 self.fetchAndSaveGraphQLQuery(startIndex: edges.count, after: first.endCursor ?? "")
@@ -73,14 +88,12 @@ extension GraphQLTableViewController : UITableViewDelegate {
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(105)
     }
-}
 
-// MARK: - UITableViewDataSource
-extension GraphQLTableViewController : UITableViewDataSource {
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    // MARK: - UITableViewDataSource
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GraphGLResultTableViewCell.name, for: indexPath)
         
         if let cell = cell as? GraphGLResultTableViewCell, let edges = self.viewModel?.edges {
@@ -89,7 +102,7 @@ extension GraphQLTableViewController : UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let edges = self.viewModel?.edges,
             let gitUrl = edges[indexPath.row].url,
             let url = URL(string: gitUrl) {

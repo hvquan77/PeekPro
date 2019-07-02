@@ -6,6 +6,7 @@
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="order" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="ownerType" attributeType="String" syncable="YES"/>
+        <attribute name="queryString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="stargazersTotalCount" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="typeName" attributeType="String" syncable="YES"/>
         <attribute name="url" attributeType="String" syncable="YES"/>
@@ -19,7 +20,7 @@
         <attribute name="typeName" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Edge" positionX="0" positionY="90" width="128" height="165"/>
+        <element name="Edge" positionX="0" positionY="90" width="128" height="180"/>
         <element name="PageInfo" positionX="-36" positionY="9" width="128" height="135"/>
     </elements>
 </model>

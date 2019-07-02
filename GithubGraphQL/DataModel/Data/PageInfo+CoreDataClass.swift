@@ -19,4 +19,8 @@ public class PageInfo: NSManagedObject {
         
         return request
     }
+    
+    @nonobjc public class func batchDeleteRequest() -> NSBatchDeleteRequest {
+        return NSBatchDeleteRequest(fetchRequest: PageInfo.fetchRequest())
+    }
 }
