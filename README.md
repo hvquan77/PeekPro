@@ -3,7 +3,7 @@
 <img src="resources/peek_repo_1024x1024.png" width="200"><img src="https://cdn.worldvectorlogo.com/logos/graphql.svg" width="200" height="100" />
 
 ## Introduction
-Introducing Peek Repo, a new way to view GitHub repositories on mobile! This app was created based on real customer asks.  Just kidding, this app was created in response to [The Peek iOS Coding Challenge](https://github.com/gadabout/github-graphql). 
+Introducing Peek Repo, a new way to view GitHub repositories on mobile! This app was created based on [The Peek iOS Coding Challenge](https://github.com/gadabout/github-graphql). 
 
 On launch the app will display of list of repositories containing the string ```graphql```. The app currently supports the following features:
 
@@ -12,9 +12,9 @@ On launch the app will display of list of repositories containing the string ```
 * Pull to refresh the data
 * Clicking on an item will take you to the GitHub repository
 
-All this was designed using modern coding patterns and tools, including MVVM design, Interface Builder, Factory design patterns, protocols and with and with extensibility in mind.
+All this was designed using modern coding patterns and tools, including MVVM design, Interface Builder, Factory design patterns, protocols and with extensibility in mind.
 
-##Dependencies
+## Dependencies
 Since this is based on [The Peek iOS Coding Challenge](https://github.com/gadabout/github-graphql), this project interfaces with Github V4 APIs to perform searches.  The Search results are based off of the Search Result API found here.
 
 The Manager classes were written as part of the standard template and it uses CocoaPods to leverage Apollo iOS Client to pull data from the Github API. 
