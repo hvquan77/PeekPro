@@ -72,7 +72,7 @@
                                             </subviews>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="xEK-xS-Hgk" userLabel="Description Stack">
-                                            <rect key="frame" x="88" y="13" width="51.5" height="60"/>
+                                            <rect key="frame" x="88" y="13" width="266" height="60"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f3q-Hz-hJp">
                                                     <rect key="frame" x="0.0" y="0.0" width="35" height="21.5"/>
@@ -116,6 +116,7 @@
                                     <constraints>
                                         <constraint firstItem="xEK-xS-Hgk" firstAttribute="leading" secondItem="p1m-L9-3dX" secondAttribute="trailing" constant="12" id="Agz-GC-3ps"/>
                                         <constraint firstItem="p1m-L9-3dX" firstAttribute="top" secondItem="kRZ-23-OhD" secondAttribute="top" constant="10" id="KMr-xE-EVk"/>
+                                        <constraint firstAttribute="trailing" secondItem="xEK-xS-Hgk" secondAttribute="trailing" constant="21" id="hHd-tB-9JP"/>
                                         <constraint firstItem="p1m-L9-3dX" firstAttribute="leading" secondItem="kRZ-23-OhD" secondAttribute="leading" constant="10" id="lyO-ci-haZ"/>
                                         <constraint firstItem="xEK-xS-Hgk" firstAttribute="top" secondItem="kRZ-23-OhD" secondAttribute="top" constant="13" id="zxW-dI-UTs"/>
                                     </constraints>
