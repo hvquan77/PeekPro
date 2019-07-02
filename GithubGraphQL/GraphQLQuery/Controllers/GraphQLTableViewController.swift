@@ -49,7 +49,7 @@ class GraphQLTableViewController : UITableViewController {
             print("Empty state encountered")
             self.fetchAndSaveGraphQLQuery()
         } else {
-            print("Pages count: \(self.viewModel?.edges.count ?? 0)")
+            print("Pages count: \(self.viewModel?.pageInfos.count ?? 0)")
             print("Edges count: \(self.viewModel?.edges.count ?? 0)")
             DispatchQueue.main.async {
                 self.tableView?.reloadData()
@@ -58,10 +58,15 @@ class GraphQLTableViewController : UITableViewController {
     }
     
     @objc private func pullToRefresh() {
+        // BUG: App crashes when adding the following lines.
+        // self.viewModel?.removeAllCache()
+        // self.tableView?.reloadData()
+        // self.refresh()
+        
         self.fetchAndSaveGraphQLQuery()
     }
     
-    private func fetchAndSaveGraphQLQuery(startIndex: Int? = 0, after: String? = nil) {
+    private func fetchAndSaveGraphQLQuery(startIndex: Int = 0, after: String? = nil) {
         self.viewModel?.fetchAndSave(startIndex: startIndex, after: after, success: {
             DispatchQueue.main.async { [weak self] in
                 self?.refreshControl?.endRefreshing()

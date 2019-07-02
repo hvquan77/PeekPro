@@ -16,7 +16,7 @@ protocol SearchRepository {
     var pageInfos: [PageInfo] { get }
     var edges: [Edge] { get }
     
-    func fetchAndSave(startIndex: Int?, after: String?, success: @escaping (() -> Void), failure: @escaping ((Error) -> Void))
+    func fetchAndSave(startIndex: Int, after: String?, success: @escaping (() -> Void), failure: @escaping ((Error) -> Void))
     
     func syncFromCache(completion: () -> Void)
     
@@ -44,13 +44,14 @@ class RepositoryViewModelBase : SearchRepository {
         self.gqlQuery = SearchRepositoriesQuery.init(first: limit, query: queryString, type: self.searchType)
     }
     
-    func fetchAndSave(startIndex: Int? = 0, after: String? = nil, success: @escaping (() -> Void), failure: @escaping ((Error) -> Void)) {
+    func fetchAndSave(startIndex: Int = 0, after: String? = nil, success: @escaping (() -> Void), failure: @escaping ((Error) -> Void)) {
         self.setupQuery(limit: self.limit, after: after, queryString: self.queryString, type: self.searchType)
         
         RepositoriesGraphQLClient.searchRepositories(query: self.gqlQuery) { (result) in
             switch result {
             case .success(let data):
                 if let gqlResult = data {
+                    print("Beginning fetchAndSave...")
                     self.buildPageInfo(data: gqlResult.data)
                     self.buildEdges(startIndex: startIndex, data: gqlResult.data, success: success, failure: failure)
                 }
@@ -104,47 +105,41 @@ class RepositoryViewModelBase : SearchRepository {
                     self.appDelegate.saveContext()
                 }
                 print("Page Info imported")
-                print("\n")
+                print("")
             } catch let error as NSError {
                 print("Unexpected error: \(error)")
             }
         }
     }
     
-    private func buildEdges(startIndex: Int? = 0, data: SearchRepositoriesQuery.Data?, success: () -> Void, failure: (Error) -> Void) {
+    private func buildEdges(startIndex: Int = 0, data: SearchRepositoriesQuery.Data?, success: () -> Void, failure: (Error) -> Void) {
         do
         {
             let edges = try self.context.fetch(Edge.fetchRequest(queryString: self.queryString, isAscending: true))
             if let count =  data?.search.edges?.count {
                 for itemIndex in 0..<count {
-                    guard let gqlEdge = data?.search.edges?[itemIndex] else { return }
-                    guard let repository = gqlEdge.node?.asRepository?.fragments.repositoryDetails else { return }
+                    var edge: Edge?
+                    guard let gqlEdge = data?.search.edges?[itemIndex] else { continue }
+                    guard let repository = gqlEdge.node?.asRepository?.fragments.repositoryDetails else { continue }
                     
-                    if let index = edges.firstIndex(where: { $0.name == repository.name }) {
-                        print( "Edge \(edges[index].name ?? "") found" )
-                        edges[index].queryString = self.queryString
-                        edges[index].order = Int32(itemIndex + (startIndex ?? 0))
-                        edges[index].name = repository.name
-                        edges[index].url = repository.url
-                        edges[index].login = repository.owner.login
-                        edges[index].avatarUrl = repository.owner.avatarUrl
-                        edges[index].stargazersTotalCount = Int32(repository.stargazers.totalCount)
-                        edges[index].ownerType = repository.owner.__typename
-                        edges[index].typeName = repository.__typename
+                    if edges.count > itemIndex + startIndex {
+                        edge = edges[itemIndex + startIndex]
+                        print( "Edge \(edge?.name ?? "") found" )
                     } else {
                         print( "Edge \(repository.name) NOT found**" )
-                        let edge = Edge(entity: Edge.entity(), insertInto: self.context)
-                        edge.queryString = self.queryString
-                        edge.order = Int32(itemIndex + (startIndex ?? 0))
-                        edge.name = repository.name
-                        edge.url = repository.url
-                        edge.login = repository.owner.login
-                        edge.avatarUrl = repository.owner.avatarUrl
-                        edge.stargazersTotalCount = Int32(repository.stargazers.totalCount)
-                        edge.ownerType = repository.owner.__typename
-                        edge.typeName = repository.__typename
-                        print("Edge \(repository.name) Info imported")
+                        edge = Edge(entity: Edge.entity(), insertInto: self.context)
+                        print("Edge \(repository.name) Info created")
                     }
+                    
+                    edge?.queryString = self.queryString
+                    edge?.order = Int32(itemIndex + startIndex)
+                    edge?.name = repository.name
+                    edge?.url = repository.url
+                    edge?.login = repository.owner.login
+                    edge?.avatarUrl = repository.owner.avatarUrl
+                    edge?.stargazersTotalCount = Int32(repository.stargazers.totalCount)
+                    edge?.ownerType = repository.owner.__typename
+                    edge?.typeName = repository.__typename
                 }
             }
             self.appDelegate.saveContext()
