@@ -14,6 +14,8 @@ On launch the app will display of list of repositories containing the string ```
 
 All this was designed using modern coding patterns and tools, including MVVM design, Interface Builder, Factory design patterns, protocols and with extensibility in mind.
 
+A screenshot of the app can be found [here](resources/Screenshot.png).
+
 ## Dependencies
 Since this is based on [The Peek iOS Coding Challenge](https://github.com/gadabout/github-graphql), this project interfaces with Github V4 APIs to perform searches.  The Search results are based off of the Search Result API found here.
 
