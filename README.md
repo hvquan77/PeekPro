@@ -57,6 +57,9 @@ The design chart below will illustrate the heirarchy...
 
 <img src="resources/design.jpg" width="800">
 
+#### _Developer note:_
+```GraphQLTableViewController``` could have used the generic ```RepositoryViewModelBase``` object as it's VM but because this challenge was for the queryString ```graphql```, I had initially made the VM a ```GraphQLViewModel```. It doesn't have to be. Moving forward and if the challenge was expanded, I would change it to such.
+
 ### _Data Models_
 There are two Data Models: ```PageInfo``` and ```Edges```
 
